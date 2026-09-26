@@ -1,16 +1,469 @@
 <!DOCTYPE html>
-<html>
+<html lang="id">
 <head>
-    <title>Lapisan Bumi</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Lapisan Bumi</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      min-height: 100vh;
+      background: linear-gradient(135deg, #0b3954, #087e8b, #20bf55);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 700px;
+    }
+
+    .card {
+      background: white;
+      border-radius: 25px;
+      padding: 40px;
+      text-align: center;
+      box-shadow: 0 15px 40px rgba(0,0,0,0.25);
+    }
+
+    .logo {
+      font-size: 65px;
+      margin-bottom: 10px;
+    }
+
+    h1 {
+      color: #0b3954;
+      margin-bottom: 10px;
+      font-size: 32px;
+    }
+
+    .subtitle {
+      color: #666;
+      margin-bottom: 30px;
+      font-size: 16px;
+    }
+
+    label {
+      display: block;
+      text-align: left;
+      font-weight: bold;
+      color: #333;
+      margin-bottom: 8px;
+    }
+
+    input {
+      width: 100%;
+      padding: 15px;
+      border: 2px solid #ddd;
+      border-radius: 12px;
+      font-size: 16px;
+      margin-bottom: 20px;
+      outline: none;
+    }
+
+    input:focus {
+      border-color: #087e8b;
+    }
+
+    button {
+      border: none;
+      border-radius: 12px;
+      padding: 15px 25px;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+
+    .start-btn {
+      width: 100%;
+      background: #087e8b;
+      color: white;
+    }
+
+    button:hover {
+      transform: translateY(-2px);
+      opacity: 0.9;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    .welcome {
+      background: #eef9f5;
+      padding: 15px;
+      border-radius: 12px;
+      margin: 20px 0;
+      color: #087e8b;
+      font-weight: bold;
+    }
+
+    .menu {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 15px;
+      margin-top: 25px;
+    }
+
+    .menu button {
+      min-height: 110px;
+      color: white;
+    }
+
+    .materi {
+      background: #2878c8;
+    }
+
+    .quiz {
+      background: #f39c12;
+    }
+
+    .game {
+      background: #8e44ad;
+    }
+
+    .ranking {
+      background: #16a085;
+    }
+
+    .menu-icon {
+      display: block;
+      font-size: 35px;
+      margin-bottom: 8px;
+    }
+
+    .logout {
+      margin-top: 25px;
+      background: #eee;
+      color: #555;
+      padding: 10px 20px;
+    }
+
+    .section {
+      margin-top: 25px;
+      padding: 25px;
+      background: #f7f7f7;
+      border-radius: 15px;
+      text-align: left;
+    }
+
+    .back {
+      margin-top: 20px;
+      background: #087e8b;
+      color: white;
+    }
+
+    @media (max-width: 600px) {
+      .card {
+        padding: 25px;
+      }
+
+      .menu {
+        grid-template-columns: 1fr;
+      }
+
+      h1 {
+        font-size: 26px;
+      }
+    }
+  </style>
 </head>
 
 <body>
 
-    <h1>Login Siswa</h1>
+<div class="container">
 
-    <input type="text" placeholder="Nama Siswa">
+  <!-- ================= LOGIN ================= -->
 
-    <button>Mulai</button>
+  <div class="card" id="loginPage">
+
+    <div class="logo">🌍</div>
+
+    <h1>LAPISAN BUMI</h1>
+
+    <p class="subtitle">
+      Media Pembelajaran Interaktif
+    </p>
+
+    <label for="nama">Nama Siswa</label>
+
+    <input
+      type="text"
+      id="nama"
+      placeholder="Masukkan nama kamu"
+      autocomplete="off"
+    >
+
+    <button class="start-btn" onclick="mulaiBelajar()">
+      🚀 MULAI BELAJAR
+    </button>
+
+  </div>
+
+
+  <!-- ================= MENU ================= -->
+
+  <div class="card hidden" id="menuPage">
+
+    <div class="logo">🌍</div>
+
+    <h1>Halo, <span id="namaSiswa"></span>! 👋</h1>
+
+    <div class="welcome">
+      Selamat datang di pembelajaran Lapisan Bumi
+    </div>
+
+    <p class="subtitle">
+      Silakan pilih kegiatan pembelajaran.
+    </p>
+
+    <div class="menu">
+
+      <button class="materi" onclick="bukaHalaman('materi')">
+        <span class="menu-icon">📚</span>
+        MATERI
+      </button>
+
+      <button class="quiz" onclick="bukaHalaman('quiz')">
+        <span class="menu-icon">📝</span>
+        QUIZ
+      </button>
+
+      <button class="game" onclick="bukaHalaman('game')">
+        <span class="menu-icon">🎮</span>
+        GAME
+      </button>
+
+      <button class="ranking" onclick="bukaHalaman('ranking')">
+        <span class="menu-icon">🏆</span>
+        RANKING
+      </button>
+
+    </div>
+
+    <button class="logout" onclick="logout()">
+      Keluar
+    </button>
+
+  </div>
+
+
+  <!-- ================= HALAMAN KONTEN ================= -->
+
+  <div class="card hidden" id="contentPage">
+
+    <div class="logo" id="contentIcon">📚</div>
+
+    <h1 id="contentTitle">Materi</h1>
+
+    <div class="section">
+
+      <p id="contentText">
+        Konten akan ditambahkan pada tahap berikutnya.
+      </p>
+
+    </div>
+
+    <button class="back" onclick="kembaliKeMenu()">
+      ← Kembali ke Menu
+    </button>
+
+  </div>
+
+</div>
+
+
+<script>
+
+  // ==========================
+  // MULAI BELAJAR
+  // ==========================
+
+  function mulaiBelajar() {
+
+    const nama = document.getElementById("nama").value.trim();
+
+    if (nama === "") {
+      alert("Silakan masukkan nama terlebih dahulu.");
+      return;
+    }
+
+    // Menyimpan nama sementara di browser
+    localStorage.setItem("namaSiswa", nama);
+
+    tampilkanMenu();
+  }
+
+
+  // ==========================
+  // TAMPILKAN MENU
+  // ==========================
+
+  function tampilkanMenu() {
+
+    const nama = localStorage.getItem("namaSiswa");
+
+    if (!nama) {
+      return;
+    }
+
+    document.getElementById("namaSiswa").textContent = nama;
+
+    document.getElementById("loginPage").classList.add("hidden");
+    document.getElementById("contentPage").classList.add("hidden");
+    document.getElementById("menuPage").classList.remove("hidden");
+  }
+
+
+  // ==========================
+  // BUKA HALAMAN
+  // ==========================
+
+  function bukaHalaman(jenis) {
+
+    const icon = document.getElementById("contentIcon");
+    const title = document.getElementById("contentTitle");
+    const text = document.getElementById("contentText");
+
+    if (jenis === "materi") {
+
+      icon.textContent = "📚";
+      title.textContent = "Materi Lapisan Bumi";
+
+      text.innerHTML = `
+        <h3>Materi Pembelajaran</h3>
+        <br>
+        <p>
+          Di bagian ini nanti akan berisi materi tentang
+          lapisan-lapisan bumi.
+        </p>
+        <br>
+        <p>
+          Materi lengkap akan kita hubungkan dengan Genially
+          pada tahap berikutnya.
+        </p>
+      `;
+
+    }
+
+    else if (jenis === "quiz") {
+
+      icon.textContent = "📝";
+      title.textContent = "Quiz";
+
+      text.innerHTML = `
+        <h3>Quiz Lapisan Bumi</h3>
+        <br>
+        <p>
+          Bagian quiz akan dibuat pada tahap berikutnya.
+        </p>
+        <br>
+        <p>
+          Jawaban benar akan menghasilkan skor yang nantinya
+          disimpan ke Firebase.
+        </p>
+      `;
+
+    }
+
+    else if (jenis === "game") {
+
+      icon.textContent = "🎮";
+      title.textContent = "Game";
+
+      text.innerHTML = `
+        <h3>Game Lapisan Bumi</h3>
+        <br>
+        <p>
+          Bagian game akan dibuat setelah sistem quiz selesai.
+        </p>
+        <br>
+        <p>
+          Skor game nantinya akan masuk ke total skor siswa.
+        </p>
+      `;
+
+    }
+
+    else if (jenis === "ranking") {
+
+      icon.textContent = "🏆";
+      title.textContent = "Leaderboard";
+
+      text.innerHTML = `
+        <h3>🏆 Ranking Siswa</h3>
+        <br>
+        <p>
+          Leaderboard akan terhubung ke Firebase sehingga
+          skor siswa dapat tersimpan dan diperbarui.
+        </p>
+        <br>
+        <p>
+          Bagian ini kita aktifkan setelah Firebase selesai.
+        </p>
+      `;
+
+    }
+
+    document.getElementById("menuPage").classList.add("hidden");
+    document.getElementById("contentPage").classList.remove("hidden");
+  }
+
+
+  // ==========================
+  // KEMBALI KE MENU
+  // ==========================
+
+  function kembaliKeMenu() {
+
+    document.getElementById("contentPage").classList.add("hidden");
+    document.getElementById("menuPage").classList.remove("hidden");
+
+  }
+
+
+  // ==========================
+  // LOGOUT
+  // ==========================
+
+  function logout() {
+
+    localStorage.removeItem("namaSiswa");
+
+    document.getElementById("menuPage").classList.add("hidden");
+    document.getElementById("contentPage").classList.add("hidden");
+    document.getElementById("loginPage").classList.remove("hidden");
+
+    document.getElementById("nama").value = "";
+  }
+
+
+  // ==========================
+  // CEK LOGIN SAAT DIBUKA
+  // ==========================
+
+  window.onload = function() {
+
+    const nama = localStorage.getItem("namaSiswa");
+
+    if (nama) {
+      tampilkanMenu();
+    }
+
+  };
+
+</script>
 
 </body>
 </html>
